@@ -38,6 +38,7 @@
             android:textColorHint="@color/white"
             android:layout_gravity="center_horizontal"
             android:drawableRight="@drawable/ic_username"
+            android:backgroundTint="@color/white"
             android:lines="1"
             android:maxLength="20"
             android:inputType="textEmailAddress"/>
@@ -50,6 +51,7 @@
             android:textColorHint="@color/white"
             android:layout_gravity="center_horizontal"
             android:drawableRight="@drawable/ic_password"
+            android:backgroundTint="@color/white"
             android:lines="1"
             android:maxLength="20"
             android:inputType="numberPassword"/>
@@ -64,6 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/remember_me"
+                android:buttonTint="@color/white"
                 android:textColor="@color/white"
                 android:layout_marginRight="16dp"/>
 
