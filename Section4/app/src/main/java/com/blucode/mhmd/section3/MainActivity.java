@@ -1,5 +1,6 @@
 package com.blucode.mhmd.section3;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +13,7 @@ import com.blucode.mhmd.section3.data.Song;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private RecyclerView recyclerView;
     private List<Song> songs;

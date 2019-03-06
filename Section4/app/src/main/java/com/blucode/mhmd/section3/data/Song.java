@@ -4,6 +4,7 @@ public class Song {
     private String name;
     private String description;
     private int imgDrawable;
+    private boolean isFavorite = false;
 
     public Song(String name, String description, int imgDrawable) {
         this.name = name;
@@ -33,5 +34,13 @@ public class Song {
 
     public void setImgDrawable(int imgDrawable) {
         this.imgDrawable = imgDrawable;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 }

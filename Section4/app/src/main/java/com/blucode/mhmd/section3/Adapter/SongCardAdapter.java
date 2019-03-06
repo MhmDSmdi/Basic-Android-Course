@@ -32,11 +32,27 @@ public class SongCardAdapter extends RecyclerView.Adapter<SongCardAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         final Song song = songList.get(i);
         viewHolder.name.setText(song.getName());
         viewHolder.description.setText(song.getDescription());
         Glide.with(mContext).load(song.getImgDrawable()).into(viewHolder.cover);
+
+        if (song.isFavorite())
+            Glide.with(mContext).load(R.drawable.ic_favorite_on).into(viewHolder.favorite);
+        else
+            Glide.with(mContext).load(R.drawable.ic_favorite_off).into(viewHolder.favorite);
+
+        viewHolder.favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                song.setFavorite(!song.isFavorite());
+                if (song.isFavorite())
+                    Glide.with(mContext).load(R.drawable.ic_favorite_on).into(viewHolder.favorite);
+                else
+                    Glide.with(mContext).load(R.drawable.ic_favorite_off).into(viewHolder.favorite);
+            }
+        });
     }
 
     @Override
@@ -45,12 +61,13 @@ public class SongCardAdapter extends RecyclerView.Adapter<SongCardAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView cover;
+        ImageView cover, favorite;
         TextView name, description;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             cover = itemView.findViewById(R.id.img_songCard_cover);
+            favorite = itemView.findViewById(R.id.ic_songCard_favorite);
             name = itemView.findViewById(R.id.txt_songCard_musicName);
             description = itemView.findViewById(R.id.txt_songCard_musicDescription);
         }

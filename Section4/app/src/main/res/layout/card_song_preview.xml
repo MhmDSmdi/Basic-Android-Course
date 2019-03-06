@@ -3,13 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="@dimen/card_radius_large"
+    app:cardCornerRadius="@dimen/card_radius_normal"
+    android:layout_marginBottom="4dp"
+    android:layout_marginHorizontal="4dp"
     android:elevation="@dimen/elevation_normal">
     
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark">
+        android:background="@color/colorAccent">
         
         <ImageView
             android:id="@+id/img_songCard_cover"
@@ -45,13 +47,13 @@
             android:textStyle="italic"/>
 
         <ImageView
-            android:id="@+id/ic_songCard_like"
-            android:layout_width="@dimen/size_ic_width"
-            android:layout_height="@dimen/size_ic_height"
+            android:id="@+id/ic_songCard_favorite"
+            android:layout_width="@dimen/size_ic_width_small"
+            android:layout_height="@dimen/size_ic_height_small"
             android:layout_alignParentRight="true"
             android:src="@drawable/ic_favorite_on"
             android:layout_marginTop="@dimen/margin_medium"
-            android:layout_marginRight="@dimen/margin_medium"/>
+            android:layout_marginRight="@dimen/margin_small"/>
         
     </RelativeLayout>
 
