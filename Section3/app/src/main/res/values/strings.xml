@@ -11,10 +11,13 @@
     <string name="intro_title"> Free Music Application</string>
     <string name="intro_description">We can all think of at least one song that.\n when we hear it, trigger an emotional \n response. It might be a song that</string>
     <string name="intro_btn">GET STARTED</string>
-    
+
     <string name="signip_fullname">Full name</string>
     <string name="signip_email">Email</string>
     <string name="signip_password">Password</string>
     <string name="signip_confirm_pass">Confirm password</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
