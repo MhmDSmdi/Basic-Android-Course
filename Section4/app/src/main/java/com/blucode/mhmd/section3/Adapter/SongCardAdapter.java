@@ -1,6 +1,8 @@
 package com.blucode.mhmd.section3.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blucode.mhmd.section3.R;
+import com.blucode.mhmd.section3.SongActivity;
+import com.blucode.mhmd.section3.data.Constant;
 import com.blucode.mhmd.section3.data.Song;
 import com.bumptech.glide.Glide;
 
@@ -51,6 +55,20 @@ public class SongCardAdapter extends RecyclerView.Adapter<SongCardAdapter.ViewHo
                     Glide.with(mContext).load(R.drawable.ic_favorite_on).into(viewHolder.favorite);
                 else
                     Glide.with(mContext).load(R.drawable.ic_favorite_off).into(viewHolder.favorite);
+            }
+        });
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, SongActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(Constant.EXTRA_IS_FAVORITE, song.isFavorite());
+                bundle.putString(Constant.EXTRA_SONG_NAME, song.getName());
+                bundle.putString(Constant.EXTRA_SONG_DESCRIPTION, song.getDescription());
+                bundle.putInt(Constant.EXTRA_SONG_COVER, song.getImgDrawable());
+                intent.putExtras(bundle);
+                mContext.startActivity(intent);
             }
         });
     }

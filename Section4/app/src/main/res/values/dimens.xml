@@ -12,11 +12,12 @@
 
     <dimen name="size_ic_width">32dp</dimen>
     <dimen name="size_ic_height">32dp</dimen>
-
     <dimen name="size_ic_width_small">20dp</dimen>
     <dimen name="size_ic_height_small">20dp</dimen>
     <dimen name="size_img_width_56dp">56dp</dimen>
     <dimen name="size_img_height_56dp">56dp</dimen>
+    <dimen name="size_img_width_large">180dp</dimen>
+    <dimen name="size_img_height_large">180dp</dimen>
 
     <dimen name="font_small">15sp</dimen>
     <dimen name="font_medium">18sp</dimen>
