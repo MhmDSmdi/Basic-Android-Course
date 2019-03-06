@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/card_radius_large"
+    android:elevation="@dimen/elevation_normal">
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark">
+        
+        <ImageView
+            android:id="@+id/img_songCard_cover"
+            android:layout_width="@dimen/size_img_width_56dp"
+            android:layout_height="@dimen/size_img_height_56dp"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="@dimen/margin_small"
+            android:src="@drawable/img1"/>
+
+        <TextView
+            android:id="@+id/txt_songCard_musicName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="THEN"
+            android:textColor="@color/white"
+            android:layout_toRightOf="@id/img_songCard_cover"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:textSize="@dimen/font_large"
+            android:textStyle="italic"/>
+
+        <TextView
+            android:id="@+id/txt_songCard_musicDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="This is an amazing music"
+            android:textColor="@color/white"
+            android:alpha="0.7"
+            android:layout_below="@id/txt_songCard_musicName"
+            android:layout_toRightOf="@id/img_songCard_cover"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:textSize="@dimen/font_small"
+            android:textStyle="italic"/>
+
+        <ImageView
+            android:id="@+id/ic_songCard_like"
+            android:layout_width="@dimen/size_ic_width"
+            android:layout_height="@dimen/size_ic_height"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_favorite_on"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"/>
+        
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
