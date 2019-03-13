@@ -1,15 +1,24 @@
 package com.blucode.mhmd.section3.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.view.ActionMode;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blucode.mhmd.section3.R;
 import com.blucode.mhmd.section3.SongActivity;
@@ -19,10 +28,13 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class SongCardAdapter extends RecyclerView.Adapter<SongCardAdapter.ViewHolder> {
 
     private List<Song> songList;
     private Context mContext;
+    private long[] mVibratePattern = new long[]{0,10};
 
     public SongCardAdapter(Context mContext, List<Song> songList) {
         this.songList = songList;
@@ -71,6 +83,25 @@ public class SongCardAdapter extends RecyclerView.Adapter<SongCardAdapter.ViewHo
                 mContext.startActivity(intent);
             }
         });
+
+        viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
+                vibrator.vibrate(mVibratePattern, -1);
+                return true;
+            }
+        });
+    }
+
+    public void add(int pos, Song s){
+        songList.add(s);
+        notifyItemInserted(pos);
+    }
+
+    public void remove(int pos) {
+        songList.remove(pos);
+        notifyItemRemoved(pos);
     }
 
     @Override
@@ -78,9 +109,10 @@ public class SongCardAdapter extends RecyclerView.Adapter<SongCardAdapter.ViewHo
         return songList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView cover, favorite;
+    public class ViewHolder extends RecyclerView.ViewHolder{
+        ImageView favorite;
         TextView name, description;
+        CircleImageView cover;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -89,5 +121,6 @@ public class SongCardAdapter extends RecyclerView.Adapter<SongCardAdapter.ViewHo
             name = itemView.findViewById(R.id.txt_songCard_musicName);
             description = itemView.findViewById(R.id.txt_songCard_musicDescription);
         }
+
     }
 }

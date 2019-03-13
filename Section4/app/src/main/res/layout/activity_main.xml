@@ -20,11 +20,18 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_main_songs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/main_appbar"
-        android:layout_marginTop="2dp"/>
+   <android.support.v4.widget.SwipeRefreshLayout
+       android:id="@+id/swipref_main"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_below="@id/main_appbar"
+       android:layout_marginTop="3dp">
+
+       <android.support.v7.widget.RecyclerView
+           android:id="@+id/recycler_main_songs"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content" />
+
+   </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

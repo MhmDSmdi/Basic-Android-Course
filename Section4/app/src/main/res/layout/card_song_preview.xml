@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="@dimen/card_radius_normal"
     android:layout_marginBottom="4dp"
-    android:layout_marginHorizontal="4dp"
+    android:layout_marginHorizontal="6dp"
     android:elevation="@dimen/elevation_normal">
     
     <RelativeLayout
@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:background="@color/colorAccent">
         
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_songCard_cover"
             android:layout_width="@dimen/size_img_width_56dp"
             android:layout_height="@dimen/size_img_height_56dp"
