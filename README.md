@@ -2,7 +2,7 @@
  This is android course for beginner who need to know about android developing and android application.
  Basic android has these topic :
  * Section 1
-  (Basic Java)[https://github.com/MhmDSmdi/Basic-Java-Course]
+ [https://github.com/MhmDSmdi/Basic-Java-Course](Basic Java)
  * Section 2
     * AndroidStudio Enviornment
     * Introduction to XML
