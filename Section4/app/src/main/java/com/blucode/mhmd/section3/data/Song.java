@@ -5,11 +5,20 @@ public class Song {
     private String description;
     private int imgDrawable;
     private boolean isFavorite = false;
+    private int duration;
 
     public Song(String name, String description, int imgDrawable) {
         this.name = name;
         this.description = description;
         this.imgDrawable = imgDrawable;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     public String getName() {

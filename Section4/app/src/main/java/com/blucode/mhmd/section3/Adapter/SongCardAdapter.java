@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blucode.mhmd.section3.BottomSheetFragment;
 import com.blucode.mhmd.section3.R;
 import com.blucode.mhmd.section3.SongActivity;
 import com.blucode.mhmd.section3.data.Constant;
@@ -34,11 +35,13 @@ public class SongCardAdapter extends RecyclerView.Adapter<SongCardAdapter.ViewHo
 
     private List<Song> songList;
     private Context mContext;
-    private long[] mVibratePattern = new long[]{0,10};
+    private long[] mVibratePattern = new long[]{0,30};
+    private BottomSheetItemListener listener;
 
-    public SongCardAdapter(Context mContext, List<Song> songList) {
+    public SongCardAdapter(Context mContext, List<Song> songList, BottomSheetItemListener listener) {
         this.songList = songList;
         this.mContext = mContext;
+        this.listener = listener;
     }
 
     @NonNull
@@ -48,7 +51,7 @@ public class SongCardAdapter extends RecyclerView.Adapter<SongCardAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
         final Song song = songList.get(i);
         viewHolder.name.setText(song.getName());
         viewHolder.description.setText(song.getDescription());
@@ -87,6 +90,10 @@ public class SongCardAdapter extends RecyclerView.Adapter<SongCardAdapter.ViewHo
         viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
+                BottomSheetFragment bottomSheetFragment = new BottomSheetFragment();
+                bottomSheetFragment.setPos(i);
+                bottomSheetFragment.setListener(listener);
+                bottomSheetFragment.show(((AppCompatActivity)mContext).getSupportFragmentManager(), bottomSheetFragment.getTag());
                 Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
                 vibrator.vibrate(mVibratePattern, -1);
                 return true;
