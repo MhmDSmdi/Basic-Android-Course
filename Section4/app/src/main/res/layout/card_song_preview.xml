@@ -30,7 +30,7 @@
             android:layout_toRightOf="@id/img_songCard_cover"
             android:layout_marginTop="@dimen/margin_small"
             android:layout_marginLeft="@dimen/margin_small"
-            android:textSize="@dimen/font_large"
+            android:textSize="@dimen/font_medium"
             android:textStyle="italic"/>
 
         <TextView
