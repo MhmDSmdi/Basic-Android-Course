@@ -14,8 +14,6 @@ import android.widget.ImageView;
 
 public class HomeFragment extends Fragment {
 
-    private ImageView btnSend;
-    private EditText messageEditText;
     private Button btnShareContent;
 
     @Nullable
