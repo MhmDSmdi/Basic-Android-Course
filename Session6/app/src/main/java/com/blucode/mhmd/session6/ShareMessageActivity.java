@@ -10,28 +10,40 @@ import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.system.Os;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blucode.mhmd.session6.data.TextMessage;
+import com.blucode.mhmd.session6.data.VoiceMessage;
 import com.bumptech.glide.Glide;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 class ShareMessageActivity extends AppCompatActivity {
 
@@ -41,8 +53,12 @@ class ShareMessageActivity extends AppCompatActivity {
     private String voiceOutputFile;
     private LinearLayout panel;
     private String currentPhotoPath;
-    private Button play;
-
+    private Animation mScaleAnimation;
+    private TimerRecording timerRecording;
+    private TextView timer;
+    private RecyclerView recyclerView;
+    private ShareContentAdapter adapter;
+    private List<Object> items;
     static final int REQUEST_IMAGE_CAPTURE = 101;
 
     @Override
@@ -51,11 +67,15 @@ class ShareMessageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_share_content);
         messageEditText = findViewById(R.id.edit_text_home_message);
         panel = findViewById(R.id.layout_share_content_items);
+        timer = findViewById(R.id.txt_timer_share_content);
+        recyclerView = findViewById(R.id.recycler_sharedContent);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        items = new ArrayList<>();
+        adapter = new ShareContentAdapter(this, items);
+        recyclerView.setAdapter(adapter);
         btnCamera = findViewById(R.id.img_home_camera);
         btnVoice = findViewById(R.id.img_home_voice);
         btnAttach = findViewById(R.id.img_home_attach);
-        play = findViewById(R.id.play);
-
         if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
             btnCamera.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -114,6 +134,10 @@ class ShareMessageActivity extends AppCompatActivity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                TextMessage message = new TextMessage(messageEditText.getText().toString(), new Date());
+                items.add(message);
+                messageEditText.setText("");
+                adapter.notifyItemInserted(items.size() - 1);
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, messageEditText.getText().toString().trim());
@@ -121,32 +145,45 @@ class ShareMessageActivity extends AppCompatActivity {
 
                 // Verify that the intent will resolve to an activity
                 if (sendIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(sendIntent);
+//                    startActivity(sendIntent);
                 }
             }
         });
 
-        play.setOnClickListener(new View.OnClickListener() {
+        timerRecording = new TimerRecording(new Handler() {
             @Override
-            public void onClick(View v) {
-                playingVoice();
+            public void handleMessage(Message msg) {
+                timer.setText(timerRecording.getTickString());
             }
         });
+
 
        btnVoice.setOnTouchListener(new View.OnTouchListener() {
            @Override
            public boolean onTouch(View v, MotionEvent event) {
+
                switch (event.getAction()) {
                    case MotionEvent.ACTION_DOWN:
+                        messageEditText.setVisibility(View.INVISIBLE);
+                        timer.setVisibility(View.VISIBLE);
                         startRecording();
+                        timerRecording.startTimer();
                     return true;
+
                    case MotionEvent.ACTION_UP:
+                        messageEditText.setVisibility(View.VISIBLE);
+                        timer.setVisibility(View.INVISIBLE);
                         stopRecording();
+                        timerRecording.cancelTimer();
+                        VoiceMessage voiceMessage = new VoiceMessage(messageEditText.getText().toString(), new Date(), voiceOutputFile);
+                        items.add(voiceMessage);
+                        adapter.notifyItemInserted(items.size() - 1);
                     return true;
                }
                return false;
            }
        });
+
 
     }
 
