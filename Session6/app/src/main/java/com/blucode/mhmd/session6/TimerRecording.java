@@ -66,4 +66,8 @@ public class TimerRecording {
     interface TimerListener {
         void tick(String tick);
     }
+
+    public long getTick() {
+        return tick;
+    }
 }

@@ -60,6 +60,7 @@ public class ShareContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 VoiceMessageViewHolder voiceMessageViewHolder = (VoiceMessageViewHolder) (holder);
                 voiceMessageViewHolder.getTime().setText(dateFormat.format(voiceMessage.getTime()));
                 voiceMessageViewHolder.getBody().setText(voiceMessage.getBodyMessage());
+                voiceMessageViewHolder.getDuration().setText(voiceMessage.getDurationFormative());
                 voiceMessageViewHolder.getPlay().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

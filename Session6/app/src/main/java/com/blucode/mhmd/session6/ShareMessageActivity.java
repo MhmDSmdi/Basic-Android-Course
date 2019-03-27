@@ -1,10 +1,10 @@
 package com.blucode.mhmd.session6;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
@@ -12,31 +12,28 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.system.Os;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blucode.mhmd.session6.data.TextMessage;
 import com.blucode.mhmd.session6.data.VoiceMessage;
-import com.bumptech.glide.Glide;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,6 +44,7 @@ import java.util.List;
 
 class ShareMessageActivity extends AppCompatActivity {
 
+    private static final int MY_PERMISSIONS_REQUEST = 720;
     private ImageView btnSend, btnCamera, btnVoice, btnAttach;
     private EditText messageEditText;
     private MediaRecorder myAudioRecorder;
@@ -59,6 +57,7 @@ class ShareMessageActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ShareContentAdapter adapter;
     private List<Object> items;
+    private long[] mVibratePattern = new long[]{0,30};
     static final int REQUEST_IMAGE_CAPTURE = 101;
 
     @Override
@@ -71,6 +70,7 @@ class ShareMessageActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_sharedContent);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         items = new ArrayList<>();
+        getPermission();
         adapter = new ShareContentAdapter(this, items);
         recyclerView.setAdapter(adapter);
         btnCamera = findViewById(R.id.img_home_camera);
@@ -161,12 +161,13 @@ class ShareMessageActivity extends AppCompatActivity {
        btnVoice.setOnTouchListener(new View.OnTouchListener() {
            @Override
            public boolean onTouch(View v, MotionEvent event) {
-
                switch (event.getAction()) {
                    case MotionEvent.ACTION_DOWN:
                         messageEditText.setVisibility(View.INVISIBLE);
                         timer.setVisibility(View.VISIBLE);
                         startRecording();
+                        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                        vibrator.vibrate(mVibratePattern, -1);
                         timerRecording.startTimer();
                     return true;
 
@@ -174,17 +175,39 @@ class ShareMessageActivity extends AppCompatActivity {
                         messageEditText.setVisibility(View.VISIBLE);
                         timer.setVisibility(View.INVISIBLE);
                         stopRecording();
-                        timerRecording.cancelTimer();
                         VoiceMessage voiceMessage = new VoiceMessage(messageEditText.getText().toString(), new Date(), voiceOutputFile);
+                        voiceMessage.setDuration(timerRecording.getTick());
                         items.add(voiceMessage);
+                        timerRecording.cancelTimer();
                         adapter.notifyItemInserted(items.size() - 1);
                     return true;
                }
                return false;
            }
        });
+    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
+                } else {
+                    btnVoice.setEnabled(false);
+                }
+                return;
+            }
+
+        }
+    }
+
+    private void getPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST);
+        }
     }
 
     @Override
