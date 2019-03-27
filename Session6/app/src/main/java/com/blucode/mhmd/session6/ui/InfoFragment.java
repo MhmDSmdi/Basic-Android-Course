@@ -1,4 +1,4 @@
-package com.blucode.mhmd.session6;
+package com.blucode.mhmd.session6.ui;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,11 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class SettingFragment extends Fragment {
+import com.blucode.mhmd.session6.R;
+
+public class InfoFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_setting, container, false);
+        View v = inflater.inflate(R.layout.fragment_info, container, false);
         return v;
     }
 }

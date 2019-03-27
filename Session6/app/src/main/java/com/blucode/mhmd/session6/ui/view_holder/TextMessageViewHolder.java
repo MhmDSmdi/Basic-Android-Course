@@ -1,9 +1,11 @@
-package com.blucode.mhmd.session6;
+package com.blucode.mhmd.session6.ui.view_holder;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+
+import com.blucode.mhmd.session6.R;
 
 public class TextMessageViewHolder extends RecyclerView.ViewHolder {
 

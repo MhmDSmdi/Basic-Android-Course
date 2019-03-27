@@ -1,7 +1,11 @@
-package com.blucode.mhmd.session6;
+package com.blucode.mhmd.session6.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.blucode.mhmd.session6.R;
+import com.blucode.mhmd.session6.ui.AlertRemoveDialog;
+import com.blucode.mhmd.session6.ui.view_holder.TextMessageViewHolder;
+import com.blucode.mhmd.session6.ui.view_holder.VoiceMessageViewHolder;
 import com.blucode.mhmd.session6.data.TextMessage;
 import com.blucode.mhmd.session6.data.VoiceMessage;
 
@@ -20,10 +28,13 @@ public class ShareContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private List<Object> itemList;
     private Context mContext;
     private final int TEXT_MESSAGE = 0, VOICE_MESSAGE = 1;
+    private long mVibratePattern[] = new long[]{0, 30};
+    private Vibrator vibrator;
 
     public ShareContentAdapter(Context mContext, List<Object> itemList) {
         this.itemList = itemList;
         this.mContext = mContext;
+        vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
     }
 
     @NonNull
@@ -45,17 +56,35 @@ public class ShareContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, h:mm a");
         switch (holder.getItemViewType()) {
             case TEXT_MESSAGE:
-                SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, h:mm a");
                 final TextMessage textMessage = (TextMessage) itemList.get(position);
                 TextMessageViewHolder textMessageViewHolder = (TextMessageViewHolder)(holder);
                 textMessageViewHolder.getTime().setText(dateFormat.format(textMessage.getTime()));
                 textMessageViewHolder.getBodyMessage().setText(textMessage.getText());
+                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        vibrator.vibrate(mVibratePattern, -1);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                        builder.setMessage("Are you sure remove this message?")
+                                .setTitle("Warning!");
+                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                itemList.remove(position);
+                                notifyItemRemoved(position);
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                        return true;
+                    }
+                });
                 break;
             case VOICE_MESSAGE:
-                dateFormat = new SimpleDateFormat("EEE, MMM d, h:mm a");
                 final VoiceMessage voiceMessage = (VoiceMessage) itemList.get(position);
                 VoiceMessageViewHolder voiceMessageViewHolder = (VoiceMessageViewHolder) (holder);
                 voiceMessageViewHolder.getTime().setText(dateFormat.format(voiceMessage.getTime()));
@@ -73,6 +102,15 @@ public class ShareContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+                    }
+                });
+                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        vibrator.vibrate(mVibratePattern, -1);
+                        Intent intent = new Intent(mContext, AlertRemoveDialog.class);
+                        mContext.startActivity(intent);
+                        return true;
                     }
                 });
                 break;

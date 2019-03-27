@@ -1,6 +1,8 @@
 package com.blucode.mhmd.session7;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -9,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.blucode.mhmd.session6.data.TextMessage;
-import com.blucode.mhmd.session6.data.VoiceMessage;
+import com.blucode.mhmd.session7.data.TextMessage;
+import com.blucode.mhmd.session7.data.VoiceMessage;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -53,6 +55,30 @@ public class ShareContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 TextMessageViewHolder textMessageViewHolder = (TextMessageViewHolder)(holder);
                 textMessageViewHolder.getTime().setText(dateFormat.format(textMessage.getTime()));
                 textMessageViewHolder.getBodyMessage().setText(textMessage.getText());
+                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                        builder.setMessage("Are you sure remove message?")
+                                .setTitle("Alert!");
+                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+
+                        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+
+                        AlertDialog dialog = builder.create();
+                        return true;
+                    }
+                });
                 break;
             case VOICE_MESSAGE:
                 dateFormat = new SimpleDateFormat("EEE, MMM d, h:mm a");

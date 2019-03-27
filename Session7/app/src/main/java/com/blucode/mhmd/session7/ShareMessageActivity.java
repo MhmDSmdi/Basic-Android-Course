@@ -32,8 +32,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.blucode.mhmd.session6.data.TextMessage;
-import com.blucode.mhmd.session6.data.VoiceMessage;
+import com.blucode.mhmd.session7.data.TextMessage;
+import com.blucode.mhmd.session7.data.VoiceMessage;
 
 import java.io.File;
 import java.io.IOException;
@@ -88,7 +88,7 @@ class ShareMessageActivity extends AppCompatActivity {
                         } catch (IOException ignored) {
                         }
                         if (photoFile != null) {
-                            Uri photoURI = FileProvider.getUriForFile(ShareMessageActivity.this, "com.example.android.fileproviderr", photoFile);
+                            Uri photoURI = FileProvider.getUriForFile(ShareMessageActivity.this, "com.session7.android.fileproviderr", photoFile);
                             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
                         }

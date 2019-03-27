@@ -1,4 +1,4 @@
-package com.blucode.mhmd.session6;
+package com.blucode.mhmd.session6.ui;
 
 import android.Manifest;
 import android.content.Context;
@@ -32,8 +32,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blucode.mhmd.session6.R;
+import com.blucode.mhmd.session6.adapter.ShareContentAdapter;
 import com.blucode.mhmd.session6.data.TextMessage;
 import com.blucode.mhmd.session6.data.VoiceMessage;
+import com.blucode.mhmd.session6.util.TimerRecording;
 
 import java.io.File;
 import java.io.IOException;

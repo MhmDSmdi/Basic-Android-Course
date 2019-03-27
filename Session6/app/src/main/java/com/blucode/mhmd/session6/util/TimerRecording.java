@@ -1,4 +1,4 @@
-package com.blucode.mhmd.session6;
+package com.blucode.mhmd.session6.util;
 
 import android.content.Context;
 import android.graphics.Canvas;
