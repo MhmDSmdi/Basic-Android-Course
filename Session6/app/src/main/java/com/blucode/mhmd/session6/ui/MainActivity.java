@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            System.out.println("asdasd");
             toolbar.setTitleTextColor(getColor(R.color.white));
         }
         bottomNavigationView = findViewById(R.id.bottomNavigation_main);

@@ -1,4 +1,4 @@
-package com.blucode.mhmd.session7;
+package com.blucode.mhmd.session7.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.blucode.mhmd.session7.R;
 
 public class HomeFragment extends Fragment {
 

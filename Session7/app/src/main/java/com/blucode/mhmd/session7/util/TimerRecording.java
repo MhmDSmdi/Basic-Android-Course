@@ -1,4 +1,4 @@
-package com.blucode.mhmd.session7;
+package com.blucode.mhmd.session7.util;
 
 import android.os.Handler;
 

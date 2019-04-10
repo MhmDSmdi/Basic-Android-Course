@@ -14,15 +14,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.NoActionBar">
-        <activity android:name=".ShareMessageActivity">
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity android:name=".ShareMessageActivity"/>-->
-
+        <activity android:name=".ui.AlertRemoveDialog" android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"/>
+        <activity android:name=".ui.ShareMessageActivity"/>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.session7.android.fileproviderr"

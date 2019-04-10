@@ -1,10 +1,12 @@
-package com.blucode.mhmd.session7;
+package com.blucode.mhmd.session7.ui.view_holder;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.blucode.mhmd.session7.R;
 
 public class VoiceMessageViewHolder extends RecyclerView.ViewHolder {
     private TextView time, body, duration;

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Session7</string>
+    <string name="Open">Open</string>
+    <string name="Close">Close</string>
 </resources>
